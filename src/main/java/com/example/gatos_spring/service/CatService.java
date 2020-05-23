@@ -32,8 +32,22 @@ public class CatService {
                 .orElse(ResponseEntity.noContent().build());
     }
 
-    public ResponseEntity<Void> deleteOne(UUID id) {
-        catRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Cat> deleteOne(UUID id) {
+        return catRepository.findById(id)
+                .map(foundCat -> {
+                    catRepository.delete(foundCat);
+                    return ResponseEntity.ok().body(foundCat);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
+
+    public ResponseEntity<Cat> updateOne(UUID id, Cat cat) {
+        return catRepository.findById(id).map(foundCat -> {
+            foundCat.setName(cat.getName());
+            foundCat.setAge(cat.getAge());
+            catRepository.save(foundCat);
+            return ResponseEntity.ok().body(foundCat);
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
 }

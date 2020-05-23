@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Path;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +33,12 @@ public class CatController {
     }
 
     @DeleteMapping("/cats/{id}")
-    public ResponseEntity<Void> deleteOneCat(@PathVariable UUID id) {
+    public ResponseEntity<Cat> deleteOneCat(@PathVariable UUID id) {
         return catService.deleteOne(id);
+    }
+
+    @PutMapping("/cats/{id}")
+    public ResponseEntity<Cat> updateOneCat(@PathVariable UUID id, @RequestBody Cat cat) {
+        return catService.updateOne(id, cat);
     }
 }
