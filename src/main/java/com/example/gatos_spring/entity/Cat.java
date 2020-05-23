@@ -3,12 +3,15 @@ package com.example.gatos_spring.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,12 +20,14 @@ import javax.validation.constraints.Size;
 public class Cat {
 
     @Id
-    public String id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     @NotNull
     @Size(min = 3, max = 100)
-    public String name;
+    private String name;
 
     @Range(min = 0, max = 30)
-    public int age;
+    private int age;
 }
