@@ -48,7 +48,6 @@ public class CatService {
                 .map(foundCat -> {
                     foundCat.setName(cat.getName());
                     foundCat.setAge(cat.getAge());
-                    System.out.println(foundCat.toString());
                     catRepository.save(foundCat);
                     return ResponseEntity.ok().body(foundCat);
                 })
