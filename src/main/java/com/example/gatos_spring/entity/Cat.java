@@ -3,6 +3,7 @@ package com.example.gatos_spring.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Range;
 
@@ -15,8 +16,9 @@ import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data()
+@Data
 @Entity
+@DynamicUpdate
 public class Cat {
 
     @Id

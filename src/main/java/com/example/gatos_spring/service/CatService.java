@@ -42,12 +42,16 @@ public class CatService {
     }
 
     public ResponseEntity<Cat> updateOne(UUID id, Cat cat) {
-        return catRepository.findById(id).map(foundCat -> {
-            foundCat.setName(cat.getName());
-            foundCat.setAge(cat.getAge());
-            catRepository.save(foundCat);
-            return ResponseEntity.ok().body(foundCat);
-        }).orElse(ResponseEntity.notFound().build());
-    }
 
+        return catRepository
+                .findById(id)
+                .map(foundCat -> {
+                    foundCat.setName(cat.getName());
+                    foundCat.setAge(cat.getAge());
+                    System.out.println(foundCat.toString());
+                    catRepository.save(foundCat);
+                    return ResponseEntity.ok().body(foundCat);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
